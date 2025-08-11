@@ -1,16 +1,15 @@
 from flask import Flask, render_template, request
 import mysql.connector
-import os
-from dotenv import load_dotenv
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import declarative_base, Session
 
-load_dotenv()
 app = Flask(__name__)
 
 db = mysql.connector.connect(
-    host=os.environ.get("DB_HOST"),
-    user=os.environ.get("DB_USER"),
-    password=os.environ.get("DB_PASSWORD"),
-    database=os.environ.get("DB_NAME")
+    host="localhost",
+    user="root",
+    password="Unii@12634",
+    database="Krishna_devotion"
 )
 cursor = db.cursor(dictionary=True)
 
@@ -40,5 +39,6 @@ def feedbacks():
     data = cursor.fetchall()
     return render_template('view_feedback.html', feedbacks=data)
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=10000)  # Port 10000 is good for Render
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
